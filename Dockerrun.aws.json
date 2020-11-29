@@ -5,24 +5,28 @@
             "name":"client",
             "image":"tqvdang/multi-client",
             "hostname":"client",
+            "memory":"256",
             "essential":false
         },
         {
             "name":"server",
             "image":"tqvdang/multi-server",
             "hostname":"api",
+            "memory":"256",
             "essential":false
         },
         {
             "name":"worker",
             "image":"tqvdang/multi-worker",
             "hostname":"worker",
+            "memory":"256",
             "essential":false
         },
         {
             "name":"nginx",
             "image":"tqvdang/multi-nginx",
             "hostname":"nginx",
+            "memory":"256",
             "essential":true,
             "portMappings": [
                 {
