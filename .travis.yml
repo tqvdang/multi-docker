@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t tqvdang/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true tqvdang/react-test yarn test
+
+after_success:
+  - docker build -t tqvdang/multi-client ./client
+  - docker build -t tqvdang/multi-nginx ./nginx
+  - docker build -t tqvdang/multi-server ./server
+  - docker build -t tqvdang/multi-worker ./worker
+  #log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #push images to docker hub
+  - docker push tqvdang/multi-client 
+  - docker push tqvdang/multi-nginx 
+  - docker push tqvdang/multi-server 
+  - docker push tqvdang/multi-worker
