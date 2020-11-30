@@ -4,17 +4,16 @@ import OtherPage from './OtherPage'
 import Fib from './Fib'
 
 function App() {
-  console.log('render app');
   return (
     <Router>
       <div className="App">
           <Link to="/">Home</Link> | <Link to="/otherpage">OtherPage</Link>
+          <h1 className="App-Title">Fib Calculator</h1>    
         <div>          
           <Route exact path="/" component={Fib} />
           <Route path="/otherpage" component={OtherPage} />
         </div>
       </div>
-
     </Router>
   );
 }
