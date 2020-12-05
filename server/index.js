@@ -24,7 +24,7 @@ pgClient.connect((err, client, release)=> {
     {
         return console.error('error acquiring client', err.stack);
     }    
-    client.query('CREATE TABLE IF NOT EXISTS values (number int)')
+    client.query('CREATE TABLE IF NOT EXISTS values (number int);')
     .catch(err=>console.log('unable to create table. error is: ' + err.stack));
 });
 
@@ -45,7 +45,7 @@ app.get('/', (req,res)=>{
     res.send('hi');
 });
 app.get('/values/all', async (req,res)=>{
-    const values = await pgClient.query('SELECT * from values');
+    const values = await pgClient.query('SELECT * from values;');
     res.send(values.rows);
 });
 app.get('/values/current', async (req, res) => {
@@ -62,7 +62,7 @@ app.post('/values', async (req, res) => {
     console.log('index requested is ' + index);
     redisClient.hset('values', index, 'Nothing yet!!');
     redisPublisher.publish('insert', index);
-    pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
+    pgClient.query('INSERT INTO values(number) VALUES($1);', [index]);
     res.send({working: true});
 });
 
